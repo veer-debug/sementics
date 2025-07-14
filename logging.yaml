@@ -1,0 +1,46 @@
+version: 1
+filters:
+  requestid:
+    (): flask_log_request_id.RequestIDLogFilter
+formatters:
+  hiformat:
+    format: '%(asctime)s - %(name)-10s - %(levelname)-6s - %(request_id)s - %(message)s'
+  simple:
+    format: '%(asctime)s - %(name)-10s - %(levelname)-6s - %(request_id)s - %(message)s'
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: hiformat
+    stream: ext://sys.stdout
+    filters: [requestid]
+  app_debug:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: INFO
+    formatter: simple
+    filename: logs/log_info.log
+    when: 'midnight'
+    interval: 1
+    backupCount: 15
+    filters: [requestid]
+  app_error:
+    class: logging.handlers.TimedRotatingFileHandler
+    level: ERROR
+    formatter: simple
+    filename: logs/log_error.log
+    when: 'midnight'
+    interval: 1
+    backupCount: 15
+    filters: [requestid]
+loggers:
+  console:
+    level: INFO
+    handlers: [console]
+    propagate: no
+  flask_restx_api:
+    level: INFO
+    handlers: [console, app_debug, app_error]
+    propagate: no
+root:
+  level: INFO
+  handlers: [console, app_debug, app_error]

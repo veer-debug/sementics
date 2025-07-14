@@ -1,0 +1,18 @@
+# Requirements for Sentiment Analysis API
+flask==2.2.5
+flask-restx==1.0.5
+python-dotenv==1.0.0
+pytest==7.4.0
+black==23.7.0
+flake8==6.1.0
+gunicorn==21.2.0
+werkzeug==2.2.3
+flask-log-request-id==0.10.1
+PyYAML==6.0.2
+transformers
+torch==2.7.1
+transformers
+scikit-learn
+pandas
+numpy
+datasets 
